@@ -1,0 +1,3 @@
+module.exports = {
+    STREAMERS: ['TEST1', 'TEST2', 'TEST3',] // STREAMER NAMES TO CHECK FOR LIVE STATUS
+};
