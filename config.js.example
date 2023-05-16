@@ -1,4 +1,5 @@
 module.exports = {
-    GROUPID: '-123456789', //id of group chat with a bot
-    STREAMERS: ['TEST1', 'TEST2', 'TEST3',] // STREAMER NAMES TO CHECK FOR LIVE STATUS
+    GROUPID: '-123456789', // Id of group chat with a bot
+    STREAMERS: ['TEST1', 'TEST2', 'TEST3',] // Streamer names to check for live status
+    TIME: 2, // Time between checks in minutes (2 is recommended)
 };

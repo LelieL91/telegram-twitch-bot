@@ -1,20 +1,19 @@
 require('dotenv').config();
 require("module-alias/register");
 const { Telegraf } = require('telegraf');
-const { STREAMERS, GROUPID } = require("@root/config.js");
+const { STREAMERS, GROUPID, TIME } = require("@root/config.js");
 const axios = require('axios');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // Handler for the /start command
 bot.command('idcheck', async (ctx) => {
-  ctx.reply(`ID Группы: ${(await ctx.getChat()).id}`);
+  ctx.reply(`ID Чата/Группы/Канала: <b>${(await ctx.getChat()).id}</b>`,{ parse_mode: 'HTML' });
 });
 
 bot.start((ctx) => {
-  ctx.replyWithPhoto('https://cdn.discordapp.com/attachments/448160851266895873/1098334654945316874/Logo.png', { caption: "Тестовый текст" });
+  ctx.reply(`Привет, бот запущен!\n\nВыбранная Группа: <b>${GROUPID}</b>.\n\nПроверка каждые <b>${TIME}</b> мин.\n\nСтримеры: <pre>${STREAMERS}</pre>`,{ parse_mode: 'HTML' });
 });
-
 
 // Store the status of each streamer in an object
 let streamStatus = {};
@@ -55,7 +54,7 @@ async function checkStreamStatus() {
           const thumbnailUrl = streamData.thumbnail_url.replace('{width}', '640').replace('{height}', '360');
           const title = streamData.title;
           const gamename = streamData.game_name;
-          const notification = `👾${twitchUsername} запустил(-а) стрим! \n[${gamename}]\n\n${title}\n\n💠${streamUrl}\n\n#stream_kvp`;
+          const notification = `👾${twitchUsername} запустил(-а) стрим! \n[${gamename}]\n\n${title}\n\n💠${streamUrl}\n`;
           // Send the message to the group
           bot.telegram.sendPhoto(chatId, thumbnailUrl, { caption: notification });
           // Update the streamStatus object with the new stream ID
@@ -74,8 +73,8 @@ async function checkStreamStatus() {
   }
 }
 
-// Check Twitch stream status every 2 minutes
-setInterval(checkStreamStatus, 2 * 60 * 1000);
+// Check Twitch stream status every TIME minutes
+setInterval(checkStreamStatus, TIME * 60 * 1000);
 
 bot.launch();
 console.log("Бот Запущен");
