@@ -43,6 +43,7 @@ async function checkStreamStatus() {
       });
 
       const streamData = response.data.data[0];
+      console.log(streamData);
       console.info(`ИНФО:Проверка статуса потока для юзера ${twitchUsername}: ${streamData ? 'Стримит!' : 'Не Стримит!'}`);
 
       if (streamData) {
@@ -51,7 +52,7 @@ async function checkStreamStatus() {
         if (!streamStatus[twitchUsername] || streamStatus[twitchUsername] !== streamId) {
           // If the streamer is not in the streamStatus object or the stream ID has changed, send notification
           const streamUrl = `https://www.twitch.tv/${twitchUsername}`;
-          const thumbnailUrl = streamData.thumbnail_url.replace('{width}', '640').replace('{height}', '360');
+          const thumbnailUrl = streamData.thumbnail_url.replace('{width}', '640').replace('{height}', '360')+ `?timestamp=${Date.now()}`;
           const title = streamData.title;
           const gamename = streamData.game_name;
           const notification = `👾${twitchUsername} запустил(-а) стрим! \n[${gamename}]\n\n${title}\n\n💠${streamUrl}\n`;
