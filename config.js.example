@@ -1,5 +1,14 @@
 module.exports = {
-    GROUPID: '-123456789', // Id of group chat with a bot
-    STREAMERS: ['TEST1', 'TEST2', 'TEST3',] // Streamer names to check for live status
-    TIME: 2, // Time between checks in minutes (2 is recommended)
+    GROUPID: '-123456789', // Id of group chat with a bot.
+    STREAMERS: ['TEST1', 'TEST2', 'TEST3'], // Streamer names to check for live status.
+    TIME: 2, // Time between checks in minutes (2 is recommended).
+    MESSAGE: "{twitchUsername} started streaming! \n[{game}]\n\n{title}\n\n💠{streamUrl}\n" //custom message in telegram, for twitch info use words below.
+
+    // \n - for new line
+    // {twitchUsername} - for streamer username
+    // {game} - for game that is streamed
+    // {title} - for title of a stream
+    // {streamUrl} - for stream url
+    // {viewerCount} - for stream viewercount
+    // {language} - for stream language
 };
