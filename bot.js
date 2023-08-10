@@ -95,7 +95,7 @@ async function checkStreamStatus() {
     }
   } catch (error) {
     logger.error(error);
-    bot.telegram.sendMessage(chatId, 'Произошла ошибка при проверке статуса потока Twitch.');
+    bot.telegram.sendMessage(GROUPID, 'Произошла ошибка при проверке статуса потока Twitch.');
   }
 }
 
