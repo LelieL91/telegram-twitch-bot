@@ -37,11 +37,11 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // Handler for the /start command
 bot.command('idcheck', async (ctx) => {
-  ctx.reply(`ID Чата/Группы/Канала: <b>${(await ctx.getChat()).id}</b>`, { parse_mode: 'HTML' });
+  ctx.reply(`Chat/Group/Channel ID: <b>${(await ctx.getChat()).id}</b>`, { parse_mode: 'HTML' });
 });
 
 bot.start((ctx) => {
-  ctx.reply(`Привет, бот запущен!\n\nВыбранная Группа: <b>${GROUPID}</b>.\n\nПроверка каждые <b>${TIME}</b> мин.\n\nСтримеры: <pre>${STREAMERS}</pre>`, { parse_mode: 'HTML' });
+  ctx.reply(`Hello, the bot is running!\n\nSelected Group: <b>${GROUPID}</b>.\n\nCheck every <b>${TIME}</b> min.\n\nStreamers: <pre>${STREAMERS}</pre>`, { parse_mode: 'HTML' });
 });
 
 // Store the status of each streamer in an object
@@ -81,7 +81,7 @@ async function checkStreamStatus() {
           // If the streamer is not in the streamStatus object or the stream ID has changed, send notification
           const streamUrl = `https://www.twitch.tv/${twitchUsername}`;
           const thumbnailUrl = streamData.thumbnail_url.replace('{width}', '640').replace('{height}', '360') + `?timestamp=${Date.now()}`;
-          // const notification = `👾${twitchUsername} запустил(-а) стрим! \n[${gamename}]\n\n${title}\n\n💠${streamUrl}\n`;
+          // const notification = `👾${twitchUsername} started a stream! \n[${gamename}]\n\n${title}\n\n💠${streamUrl}\n`;
           const notification = parMessage(MESSAGE, streamData.user_name, streamData.game_name, streamData.title, streamUrl, streamData.viewer_count, streamData.language);
           // Send the message to the group
           bot.telegram.sendPhoto(chatId, thumbnailUrl, { caption: notification });
